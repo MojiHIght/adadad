@@ -1,5 +1,5 @@
--- X2Moji - Sonaria GUI
--- Dark Mode Modern Interface
+-- X2Moji - Sonaria GUI V2
+-- Dark Mode Modern Interface with Gradient
 
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
@@ -15,9 +15,9 @@ ScreenGui.Parent = LocalPlayer:WaitForChild("PlayerGui")
 -- Main Frame
 local MainFrame = Instance.new("Frame")
 MainFrame.Name = "MainFrame"
-MainFrame.Size = UDim2.new(0, 380, 0, 280)
-MainFrame.Position = UDim2.new(0.5, -190, 0.5, -140)
-MainFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 25)
+MainFrame.Size = UDim2.new(0, 420, 0, 450)
+MainFrame.Position = UDim2.new(0.5, -210, 0.5, -225)
+MainFrame.BackgroundColor3 = Color3.fromRGB(18, 18, 24)
 MainFrame.BorderSizePixel = 0
 MainFrame.Active = true
 MainFrame.Draggable = true
@@ -25,199 +25,302 @@ MainFrame.Parent = ScreenGui
 
 -- Main Frame Corner
 local MainCorner = Instance.new("UICorner")
-MainCorner.CornerRadius = UDim.new(0, 16)
+MainCorner.CornerRadius = UDim.new(0, 20)
 MainCorner.Parent = MainFrame
 
--- Shadow Effect
-local Shadow = Instance.new("ImageLabel")
-Shadow.Name = "Shadow"
-Shadow.Size = UDim2.new(1, 40, 1, 40)
-Shadow.Position = UDim2.new(0, -20, 0, -20)
-Shadow.BackgroundTransparency = 1
-Shadow.Image = "rbxasset://textures/ui/GuiImagePlaceholder.png"
-Shadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
-Shadow.ImageTransparency = 0.7
-Shadow.ScaleType = Enum.ScaleType.Slice
-Shadow.SliceCenter = Rect.new(10, 10, 118, 118)
-Shadow.ZIndex = 0
-Shadow.Parent = MainFrame
+-- Main Frame Gradient
+local MainGradient = Instance.new("UIGradient")
+MainGradient.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(25, 25, 35)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(15, 15, 22))
+}
+MainGradient.Rotation = 45
+MainGradient.Parent = MainFrame
+
+-- Accent Border
+local AccentBorder = Instance.new("Frame")
+AccentBorder.Name = "AccentBorder"
+AccentBorder.Size = UDim2.new(1, 4, 1, 4)
+AccentBorder.Position = UDim2.new(0, -2, 0, -2)
+AccentBorder.BackgroundColor3 = Color3.fromRGB(100, 150, 255)
+AccentBorder.BorderSizePixel = 0
+AccentBorder.ZIndex = 0
+AccentBorder.Parent = MainFrame
+
+local AccentCorner = Instance.new("UICorner")
+AccentCorner.CornerRadius = UDim.new(0, 21)
+AccentCorner.Parent = AccentBorder
+
+local AccentGradient = Instance.new("UIGradient")
+AccentGradient.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(100, 150, 255)),
+    ColorSequenceKeypoint.new(0.5, Color3.fromRGB(150, 100, 255)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(100, 200, 255))
+}
+AccentGradient.Rotation = 90
+AccentGradient.Parent = AccentBorder
+
+-- Animate Border Gradient
+task.spawn(function()
+    while true do
+        for i = 0, 360, 2 do
+            AccentGradient.Rotation = i
+            task.wait(0.05)
+        end
+    end
+end)
 
 -- Header Frame
 local Header = Instance.new("Frame")
 Header.Name = "Header"
-Header.Size = UDim2.new(1, 0, 0, 50)
-Header.BackgroundColor3 = Color3.fromRGB(30, 30, 38)
+Header.Size = UDim2.new(1, 0, 0, 60)
+Header.BackgroundColor3 = Color3.fromRGB(30, 30, 42)
 Header.BorderSizePixel = 0
 Header.Parent = MainFrame
 
 local HeaderCorner = Instance.new("UICorner")
-HeaderCorner.CornerRadius = UDim.new(0, 16)
+HeaderCorner.CornerRadius = UDim.new(0, 20)
 HeaderCorner.Parent = Header
+
+local HeaderGradient = Instance.new("UIGradient")
+HeaderGradient.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(40, 40, 55)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(25, 25, 38))
+}
+HeaderGradient.Rotation = 90
+HeaderGradient.Parent = Header
 
 -- Fix Header Bottom Corners
 local HeaderBottomFix = Instance.new("Frame")
-HeaderBottomFix.Size = UDim2.new(1, 0, 0, 16)
-HeaderBottomFix.Position = UDim2.new(0, 0, 1, -16)
-HeaderBottomFix.BackgroundColor3 = Color3.fromRGB(30, 30, 38)
+HeaderBottomFix.Size = UDim2.new(1, 0, 0, 20)
+HeaderBottomFix.Position = UDim2.new(0, 0, 1, -20)
+HeaderBottomFix.BackgroundColor3 = Color3.fromRGB(25, 25, 38)
 HeaderBottomFix.BorderSizePixel = 0
 HeaderBottomFix.Parent = Header
 
 -- Title
 local Title = Instance.new("TextLabel")
 Title.Name = "Title"
-Title.Size = UDim2.new(1, -100, 1, 0)
-Title.Position = UDim2.new(0, 20, 0, 0)
+Title.Size = UDim2.new(1, -120, 1, 0)
+Title.Position = UDim2.new(0, 25, 0, 0)
 Title.BackgroundTransparency = 1
 Title.Text = "X2Moji - Sonaria"
 Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-Title.TextSize = 20
+Title.TextSize = 22
 Title.Font = Enum.Font.GothamBold
 Title.TextXAlignment = Enum.TextXAlignment.Left
 Title.Parent = Header
 
+local TitleGradient = Instance.new("UIGradient")
+TitleGradient.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(150, 180, 255)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(200, 150, 255))
+}
+TitleGradient.Parent = Title
+
 -- Version Label
 local Version = Instance.new("TextLabel")
 Version.Name = "Version"
-Version.Size = UDim2.new(0, 80, 0, 20)
-Version.Position = UDim2.new(1, -90, 0, 15)
-Version.BackgroundColor3 = Color3.fromRGB(45, 45, 55)
+Version.Size = UDim2.new(0, 70, 0, 26)
+Version.Position = UDim2.new(1, -90, 0, 17)
+Version.BackgroundColor3 = Color3.fromRGB(50, 50, 65)
 Version.Text = "v1.0"
-Version.TextColor3 = Color3.fromRGB(150, 150, 160)
-Version.TextSize = 12
-Version.Font = Enum.Font.GothamMedium
+Version.TextColor3 = Color3.fromRGB(180, 180, 200)
+Version.TextSize = 13
+Version.Font = Enum.Font.GothamBold
 Version.Parent = Header
 
 local VersionCorner = Instance.new("UICorner")
-VersionCorner.CornerRadius = UDim.new(0, 8)
+VersionCorner.CornerRadius = UDim.new(0, 10)
 VersionCorner.Parent = Version
+
+local VersionGradient = Instance.new("UIGradient")
+VersionGradient.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(60, 60, 80)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(45, 45, 60))
+}
+VersionGradient.Rotation = 135
+VersionGradient.Parent = Version
 
 -- Content Frame
 local Content = Instance.new("Frame")
 Content.Name = "Content"
-Content.Size = UDim2.new(1, -40, 1, -90)
-Content.Position = UDim2.new(0, 20, 0, 60)
+Content.Size = UDim2.new(1, -40, 1, -100)
+Content.Position = UDim2.new(0, 20, 0, 75)
 Content.BackgroundTransparency = 1
 Content.Parent = MainFrame
 
 -- Shooms Display
 local ShoomsFrame = Instance.new("Frame")
 ShoomsFrame.Name = "ShoomsFrame"
-ShoomsFrame.Size = UDim2.new(1, 0, 0, 60)
-ShoomsFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 45)
+ShoomsFrame.Size = UDim2.new(1, 0, 0, 70)
+ShoomsFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 48)
 ShoomsFrame.BorderSizePixel = 0
 ShoomsFrame.Parent = Content
 
 local ShoomsCorner = Instance.new("UICorner")
-ShoomsCorner.CornerRadius = UDim.new(0, 12)
+ShoomsCorner.CornerRadius = UDim.new(0, 14)
 ShoomsCorner.Parent = ShoomsFrame
+
+local ShoomsGradient = Instance.new("UIGradient")
+ShoomsGradient.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(45, 45, 65)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(30, 30, 45))
+}
+ShoomsGradient.Rotation = 135
+ShoomsGradient.Parent = ShoomsFrame
 
 local ShoomsLabel = Instance.new("TextLabel")
 ShoomsLabel.Name = "Label"
-ShoomsLabel.Size = UDim2.new(1, -20, 0, 25)
-ShoomsLabel.Position = UDim2.new(0, 10, 0, 5)
+ShoomsLabel.Size = UDim2.new(1, -25, 0, 25)
+ShoomsLabel.Position = UDim2.new(0, 15, 0, 8)
 ShoomsLabel.BackgroundTransparency = 1
 ShoomsLabel.Text = "Shooms Balance"
-ShoomsLabel.TextColor3 = Color3.fromRGB(180, 180, 190)
-ShoomsLabel.TextSize = 14
-ShoomsLabel.Font = Enum.Font.GothamMedium
+ShoomsLabel.TextColor3 = Color3.fromRGB(160, 170, 200)
+ShoomsLabel.TextSize = 15
+ShoomsLabel.Font = Enum.Font.GothamBold
 ShoomsLabel.TextXAlignment = Enum.TextXAlignment.Left
 ShoomsLabel.Parent = ShoomsFrame
 
 local ShoomsValue = Instance.new("TextLabel")
 ShoomsValue.Name = "Value"
-ShoomsValue.Size = UDim2.new(1, -20, 0, 30)
-ShoomsValue.Position = UDim2.new(0, 10, 0, 25)
+ShoomsValue.Size = UDim2.new(1, -25, 0, 35)
+ShoomsValue.Position = UDim2.new(0, 15, 0, 30)
 ShoomsValue.BackgroundTransparency = 1
 ShoomsValue.Text = "0"
 ShoomsValue.TextColor3 = Color3.fromRGB(100, 200, 255)
-ShoomsValue.TextSize = 24
+ShoomsValue.TextSize = 28
 ShoomsValue.Font = Enum.Font.GothamBold
 ShoomsValue.TextXAlignment = Enum.TextXAlignment.Left
 ShoomsValue.Parent = ShoomsFrame
 
+local ShoomsValueGradient = Instance.new("UIGradient")
+ShoomsValueGradient.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(100, 200, 255)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(150, 150, 255))
+}
+ShoomsValueGradient.Parent = ShoomsValue
+
 -- Species Counter
 local SpeciesFrame = Instance.new("Frame")
 SpeciesFrame.Name = "SpeciesFrame"
-SpeciesFrame.Size = UDim2.new(1, 0, 0, 50)
-SpeciesFrame.Position = UDim2.new(0, 0, 0, 70)
-SpeciesFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 45)
+SpeciesFrame.Size = UDim2.new(1, 0, 0, 60)
+SpeciesFrame.Position = UDim2.new(0, 0, 0, 80)
+SpeciesFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 48)
 SpeciesFrame.BorderSizePixel = 0
 SpeciesFrame.Parent = Content
 
 local SpeciesCorner = Instance.new("UICorner")
-SpeciesCorner.CornerRadius = UDim.new(0, 12)
+SpeciesCorner.CornerRadius = UDim.new(0, 14)
 SpeciesCorner.Parent = SpeciesFrame
+
+local SpeciesGradient = Instance.new("UIGradient")
+SpeciesGradient.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(30, 50, 45)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(25, 40, 35))
+}
+SpeciesGradient.Rotation = 135
+SpeciesGradient.Parent = SpeciesFrame
 
 local SpeciesLabel = Instance.new("TextLabel")
 SpeciesLabel.Name = "Label"
-SpeciesLabel.Size = UDim2.new(0.5, -5, 1, 0)
+SpeciesLabel.Size = UDim2.new(0.5, -10, 1, 0)
+SpeciesLabel.Position = UDim2.new(0, 5, 0, 0)
 SpeciesLabel.BackgroundTransparency = 1
 SpeciesLabel.Text = "Unique Species"
-SpeciesLabel.TextColor3 = Color3.fromRGB(180, 180, 190)
-SpeciesLabel.TextSize = 14
-SpeciesLabel.Font = Enum.Font.GothamMedium
+SpeciesLabel.TextColor3 = Color3.fromRGB(160, 200, 180)
+SpeciesLabel.TextSize = 15
+SpeciesLabel.Font = Enum.Font.GothamBold
 SpeciesLabel.TextXAlignment = Enum.TextXAlignment.Center
 SpeciesLabel.Parent = SpeciesFrame
 
 local SpeciesValue = Instance.new("TextLabel")
 SpeciesValue.Name = "Value"
-SpeciesValue.Size = UDim2.new(0.5, -5, 1, 0)
-SpeciesValue.Position = UDim2.new(0.5, 5, 0, 0)
+SpeciesValue.Size = UDim2.new(0.5, -10, 1, 0)
+SpeciesValue.Position = UDim2.new(0.5, 10, 0, 0)
 SpeciesValue.BackgroundTransparency = 1
 SpeciesValue.Text = "0 / 10"
 SpeciesValue.TextColor3 = Color3.fromRGB(100, 255, 150)
-SpeciesValue.TextSize = 18
+SpeciesValue.TextSize = 22
 SpeciesValue.Font = Enum.Font.GothamBold
 SpeciesValue.TextXAlignment = Enum.TextXAlignment.Center
 SpeciesValue.Parent = SpeciesFrame
 
+local SpeciesValueGradient = Instance.new("UIGradient")
+SpeciesValueGradient.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(100, 255, 150)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(100, 200, 255))
+}
+SpeciesValueGradient.Parent = SpeciesValue
+
 -- Status Display
 local StatusFrame = Instance.new("Frame")
 StatusFrame.Name = "StatusFrame"
-StatusFrame.Size = UDim2.new(1, 0, 0, 80)
-StatusFrame.Position = UDim2.new(0, 0, 0, 130)
-StatusFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 45)
+StatusFrame.Size = UDim2.new(1, 0, 0, 195)
+StatusFrame.Position = UDim2.new(0, 0, 0, 150)
+StatusFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 48)
 StatusFrame.BorderSizePixel = 0
 StatusFrame.Parent = Content
 
 local StatusCorner = Instance.new("UICorner")
-StatusCorner.CornerRadius = UDim.new(0, 12)
+StatusCorner.CornerRadius = UDim.new(0, 14)
 StatusCorner.Parent = StatusFrame
+
+local StatusGradient = Instance.new("UIGradient")
+StatusGradient.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(40, 35, 50)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(25, 25, 38))
+}
+StatusGradient.Rotation = 135
+StatusGradient.Parent = StatusFrame
+
+-- Status Header
+local StatusHeader = Instance.new("Frame")
+StatusHeader.Name = "Header"
+StatusHeader.Size = UDim2.new(1, 0, 0, 35)
+StatusHeader.BackgroundColor3 = Color3.fromRGB(45, 40, 58)
+StatusHeader.BorderSizePixel = 0
+StatusHeader.Parent = StatusFrame
+
+local StatusHeaderCorner = Instance.new("UICorner")
+StatusHeaderCorner.CornerRadius = UDim.new(0, 14)
+StatusHeaderCorner.Parent = StatusHeader
+
+local StatusHeaderFix = Instance.new("Frame")
+StatusHeaderFix.Size = UDim2.new(1, 0, 0, 14)
+StatusHeaderFix.Position = UDim2.new(0, 0, 1, -14)
+StatusHeaderFix.BackgroundColor3 = Color3.fromRGB(45, 40, 58)
+StatusHeaderFix.BorderSizePixel = 0
+StatusHeaderFix.Parent = StatusHeader
+
+local StatusHeaderGradient = Instance.new("UIGradient")
+StatusHeaderGradient.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(55, 50, 70)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(40, 35, 55))
+}
+StatusHeaderGradient.Rotation = 90
+StatusHeaderGradient.Parent = StatusHeader
 
 local StatusLabel = Instance.new("TextLabel")
 StatusLabel.Name = "Label"
-StatusLabel.Size = UDim2.new(1, -20, 0, 25)
-StatusLabel.Position = UDim2.new(0, 10, 0, 5)
+StatusLabel.Size = UDim2.new(1, -50, 1, 0)
+StatusLabel.Position = UDim2.new(0, 35, 0, 0)
 StatusLabel.BackgroundTransparency = 1
-StatusLabel.Text = "Current Status"
-StatusLabel.TextColor3 = Color3.fromRGB(180, 180, 190)
-StatusLabel.TextSize = 14
-StatusLabel.Font = Enum.Font.GothamMedium
+StatusLabel.Text = "Activity Status"
+StatusLabel.TextColor3 = Color3.fromRGB(200, 200, 220)
+StatusLabel.TextSize = 15
+StatusLabel.Font = Enum.Font.GothamBold
 StatusLabel.TextXAlignment = Enum.TextXAlignment.Left
-StatusLabel.Parent = StatusFrame
-
-local StatusValue = Instance.new("TextLabel")
-StatusValue.Name = "Value"
-StatusValue.Size = UDim2.new(1, -20, 1, -35)
-StatusValue.Position = UDim2.new(0, 10, 0, 30)
-StatusValue.BackgroundTransparency = 1
-StatusValue.Text = "Initializing..."
-StatusValue.TextColor3 = Color3.fromRGB(255, 200, 100)
-StatusValue.TextSize = 16
-StatusValue.Font = Enum.Font.Gotham
-StatusValue.TextXAlignment = Enum.TextXAlignment.Left
-StatusValue.TextYAlignment = Enum.TextYAlignment.Top
-StatusValue.TextWrapped = true
-StatusValue.Parent = StatusFrame
+StatusLabel.Parent = StatusHeader
 
 -- Status Indicator
 local StatusIndicator = Instance.new("Frame")
 StatusIndicator.Name = "Indicator"
-StatusIndicator.Size = UDim2.new(0, 8, 0, 8)
-StatusIndicator.Position = UDim2.new(0, 10, 0, 10)
-StatusIndicator.BackgroundColor3 = Color3.fromRGB(255, 200, 100)
+StatusIndicator.Size = UDim2.new(0, 10, 0, 10)
+StatusIndicator.Position = UDim2.new(0, 15, 0.5, -5)
+StatusIndicator.BackgroundColor3 = Color3.fromRGB(100, 200, 255)
 StatusIndicator.BorderSizePixel = 0
-StatusIndicator.Parent = StatusLabel
+StatusIndicator.Parent = StatusHeader
 
 local IndicatorCorner = Instance.new("UICorner")
 IndicatorCorner.CornerRadius = UDim.new(1, 0)
@@ -226,13 +329,13 @@ IndicatorCorner.Parent = StatusIndicator
 -- Pulse Animation for Indicator
 local function pulseIndicator()
     while true do
-        local tweenInfo = TweenInfo.new(0.8, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut)
-        local goal = {BackgroundTransparency = 0.3}
+        local tweenInfo = TweenInfo.new(0.6, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut)
+        local goal = {BackgroundTransparency = 0.5, Size = UDim2.new(0, 12, 0, 12)}
         local tween = TweenService:Create(StatusIndicator, tweenInfo, goal)
         tween:Play()
         tween.Completed:Wait()
         
-        goal = {BackgroundTransparency = 0}
+        goal = {BackgroundTransparency = 0, Size = UDim2.new(0, 10, 0, 10)}
         tween = TweenService:Create(StatusIndicator, tweenInfo, goal)
         tween:Play()
         tween.Completed:Wait()
@@ -241,8 +344,27 @@ end
 
 task.spawn(pulseIndicator)
 
+-- Status ScrollingFrame
+local StatusScroll = Instance.new("ScrollingFrame")
+StatusScroll.Name = "StatusScroll"
+StatusScroll.Size = UDim2.new(1, -20, 1, -45)
+StatusScroll.Position = UDim2.new(0, 10, 0, 40)
+StatusScroll.BackgroundTransparency = 1
+StatusScroll.BorderSizePixel = 0
+StatusScroll.ScrollBarThickness = 4
+StatusScroll.ScrollBarImageColor3 = Color3.fromRGB(100, 150, 255)
+StatusScroll.CanvasSize = UDim2.new(0, 0, 0, 0)
+StatusScroll.AutomaticCanvasSize = Enum.AutomaticSize.Y
+StatusScroll.Parent = StatusFrame
+
+local StatusList = Instance.new("UIListLayout")
+StatusList.Padding = UDim.new(0, 3)
+StatusList.SortOrder = Enum.SortOrder.LayoutOrder
+StatusList.Parent = StatusScroll
+
 -- ฟังก์ชันอัปเดต GUI
 local GUI = {}
+local statusCount = 0
 
 function GUI:UpdateShooms(amount)
     ShoomsValue.Text = tostring(amount)
@@ -252,32 +374,67 @@ function GUI:UpdateSpecies(current, max)
     SpeciesValue.Text = string.format("%d / %d", current, max or 10)
     
     if current >= (max or 10) then
-        SpeciesValue.TextColor3 = Color3.fromRGB(100, 255, 100)
+        SpeciesValueGradient.Color = ColorSequence.new{
+            ColorSequenceKeypoint.new(0, Color3.fromRGB(100, 255, 100)),
+            ColorSequenceKeypoint.new(1, Color3.fromRGB(150, 255, 100))
+        }
     else
-        SpeciesValue.TextColor3 = Color3.fromRGB(100, 255, 150)
+        SpeciesValueGradient.Color = ColorSequence.new{
+            ColorSequenceKeypoint.new(0, Color3.fromRGB(100, 255, 150)),
+            ColorSequenceKeypoint.new(1, Color3.fromRGB(100, 200, 255))
+        }
     end
 end
 
 function GUI:UpdateStatus(text, color)
-    StatusValue.Text = text
+    statusCount = statusCount + 1
     
+    -- สร้าง Status Entry
+    local StatusEntry = Instance.new("TextLabel")
+    StatusEntry.Name = "Status_" .. statusCount
+    StatusEntry.Size = UDim2.new(1, -10, 0, 0)
+    StatusEntry.AutomaticSize = Enum.AutomaticSize.Y
+    StatusEntry.BackgroundTransparency = 1
+    StatusEntry.Text = string.format("[%s] %s", os.date("%H:%M:%S"), text)
+    StatusEntry.TextColor3 = color or Color3.fromRGB(200, 200, 220)
+    StatusEntry.TextSize = 13
+    StatusEntry.Font = Enum.Font.Gotham
+    StatusEntry.TextXAlignment = Enum.TextXAlignment.Left
+    StatusEntry.TextYAlignment = Enum.TextYAlignment.Top
+    StatusEntry.TextWrapped = true
+    StatusEntry.LayoutOrder = -statusCount
+    StatusEntry.Parent = StatusScroll
+    
+    -- อัปเดต Indicator Color
     if color then
-        StatusValue.TextColor3 = color
         StatusIndicator.BackgroundColor3 = color
     else
-        -- Default colors based on status
-        if text:lower():find("error") or text:lower():find("failed") then
-            StatusValue.TextColor3 = Color3.fromRGB(255, 100, 100)
+        if text:lower():find("error") or text:lower():find("failed") or text:lower():find("ล้มเหลว") then
             StatusIndicator.BackgroundColor3 = Color3.fromRGB(255, 100, 100)
-        elseif text:lower():find("success") or text:lower():find("complete") then
-            StatusValue.TextColor3 = Color3.fromRGB(100, 255, 100)
+            StatusEntry.TextColor3 = Color3.fromRGB(255, 120, 120)
+        elseif text:lower():find("success") or text:lower():find("complete") or text:lower():find("สำเร็จ") or text:lower():find("เสร็จ") then
             StatusIndicator.BackgroundColor3 = Color3.fromRGB(100, 255, 100)
-        elseif text:lower():find("farming") or text:lower():find("collecting") then
-            StatusValue.TextColor3 = Color3.fromRGB(100, 200, 255)
+            StatusEntry.TextColor3 = Color3.fromRGB(120, 255, 120)
+        elseif text:lower():find("farming") or text:lower():find("collecting") or text:lower():find("ฟาร์ม") or text:lower():find("เก็บ") then
             StatusIndicator.BackgroundColor3 = Color3.fromRGB(100, 200, 255)
+            StatusEntry.TextColor3 = Color3.fromRGB(120, 210, 255)
         else
-            StatusValue.TextColor3 = Color3.fromRGB(255, 200, 100)
             StatusIndicator.BackgroundColor3 = Color3.fromRGB(255, 200, 100)
+            StatusEntry.TextColor3 = Color3.fromRGB(255, 220, 150)
+        end
+    end
+    
+    -- Auto-scroll to bottom
+    task.wait(0.1)
+    StatusScroll.CanvasPosition = Vector2.new(0, StatusScroll.AbsoluteCanvasSize.Y)
+    
+    -- จำกัดจำนวน Status (เก็บแค่ 50 อันล่าสุด)
+    if statusCount > 50 then
+        for _, child in pairs(StatusScroll:GetChildren()) do
+            if child:IsA("TextLabel") and child.LayoutOrder == -1 then
+                child:Destroy()
+                break
+            end
         end
     end
 end
@@ -321,8 +478,8 @@ autoUpdateGUI()
 
 -- Initial Status
 GUI:UpdateStatus("GUI Loaded Successfully!", Color3.fromRGB(100, 255, 100))
-task.wait(2)
-GUI:UpdateStatus("Waiting for main script...")
+task.wait(1.5)
+GUI:UpdateStatus("Waiting for main script initialization...")
 
 -- Return GUI object for external control
 _G.X2MojiGUI = GUI
