@@ -1,4 +1,4 @@
--- X2Moji - Sonaria GUI V2
+-- X2Moji - Sonaria GUI V3
 -- Dark Mode Modern Interface with Gradient
 
 local Players = game:GetService("Players")
@@ -10,7 +10,16 @@ local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Name = "X2MojiSonariaGUI"
 ScreenGui.ResetOnSpawn = false
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+ScreenGui.IgnoreGuiInset = true
 ScreenGui.Parent = LocalPlayer:WaitForChild("PlayerGui")
+
+-- ทำให้พื้นที่ว่างคลิกทะลุได้
+local ClickThroughFrame = Instance.new("Frame")
+ClickThroughFrame.Name = "ClickThroughFrame"
+ClickThroughFrame.Size = UDim2.new(1, 0, 1, 0)
+ClickThroughFrame.BackgroundTransparency = 1
+ClickThroughFrame.Active = false
+ClickThroughFrame.Parent = ScreenGui
 
 -- Main Frame
 local MainFrame = Instance.new("Frame")
@@ -21,7 +30,11 @@ MainFrame.BackgroundColor3 = Color3.fromRGB(18, 18, 24)
 MainFrame.BorderSizePixel = 0
 MainFrame.Active = true
 MainFrame.Draggable = true
-MainFrame.Parent = ScreenGui
+MainFrame.Parent = ClickThroughFrame
+
+-- ทำให้ส่วนอื่นคลิกทะลุได้
+MainFrame.Parent.ResetOnSpawn = false
+MainFrame.Parent.IgnoreGuiInset = true
 
 -- Main Frame Corner
 local MainCorner = Instance.new("UICorner")
