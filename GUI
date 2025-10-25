@@ -1,0 +1,332 @@
+-- X2Moji - Sonaria GUI
+-- Dark Mode Modern Interface
+
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local TweenService = game:GetService("TweenService")
+
+-- สร้าง ScreenGui
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "X2MojiSonariaGUI"
+ScreenGui.ResetOnSpawn = false
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+ScreenGui.Parent = LocalPlayer:WaitForChild("PlayerGui")
+
+-- Main Frame
+local MainFrame = Instance.new("Frame")
+MainFrame.Name = "MainFrame"
+MainFrame.Size = UDim2.new(0, 380, 0, 280)
+MainFrame.Position = UDim2.new(0.5, -190, 0.5, -140)
+MainFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 25)
+MainFrame.BorderSizePixel = 0
+MainFrame.Active = true
+MainFrame.Draggable = true
+MainFrame.Parent = ScreenGui
+
+-- Main Frame Corner
+local MainCorner = Instance.new("UICorner")
+MainCorner.CornerRadius = UDim.new(0, 16)
+MainCorner.Parent = MainFrame
+
+-- Shadow Effect
+local Shadow = Instance.new("ImageLabel")
+Shadow.Name = "Shadow"
+Shadow.Size = UDim2.new(1, 40, 1, 40)
+Shadow.Position = UDim2.new(0, -20, 0, -20)
+Shadow.BackgroundTransparency = 1
+Shadow.Image = "rbxasset://textures/ui/GuiImagePlaceholder.png"
+Shadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+Shadow.ImageTransparency = 0.7
+Shadow.ScaleType = Enum.ScaleType.Slice
+Shadow.SliceCenter = Rect.new(10, 10, 118, 118)
+Shadow.ZIndex = 0
+Shadow.Parent = MainFrame
+
+-- Header Frame
+local Header = Instance.new("Frame")
+Header.Name = "Header"
+Header.Size = UDim2.new(1, 0, 0, 50)
+Header.BackgroundColor3 = Color3.fromRGB(30, 30, 38)
+Header.BorderSizePixel = 0
+Header.Parent = MainFrame
+
+local HeaderCorner = Instance.new("UICorner")
+HeaderCorner.CornerRadius = UDim.new(0, 16)
+HeaderCorner.Parent = Header
+
+-- Fix Header Bottom Corners
+local HeaderBottomFix = Instance.new("Frame")
+HeaderBottomFix.Size = UDim2.new(1, 0, 0, 16)
+HeaderBottomFix.Position = UDim2.new(0, 0, 1, -16)
+HeaderBottomFix.BackgroundColor3 = Color3.fromRGB(30, 30, 38)
+HeaderBottomFix.BorderSizePixel = 0
+HeaderBottomFix.Parent = Header
+
+-- Title
+local Title = Instance.new("TextLabel")
+Title.Name = "Title"
+Title.Size = UDim2.new(1, -100, 1, 0)
+Title.Position = UDim2.new(0, 20, 0, 0)
+Title.BackgroundTransparency = 1
+Title.Text = "X2Moji - Sonaria"
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.TextSize = 20
+Title.Font = Enum.Font.GothamBold
+Title.TextXAlignment = Enum.TextXAlignment.Left
+Title.Parent = Header
+
+-- Version Label
+local Version = Instance.new("TextLabel")
+Version.Name = "Version"
+Version.Size = UDim2.new(0, 80, 0, 20)
+Version.Position = UDim2.new(1, -90, 0, 15)
+Version.BackgroundColor3 = Color3.fromRGB(45, 45, 55)
+Version.Text = "v1.0"
+Version.TextColor3 = Color3.fromRGB(150, 150, 160)
+Version.TextSize = 12
+Version.Font = Enum.Font.GothamMedium
+Version.Parent = Header
+
+local VersionCorner = Instance.new("UICorner")
+VersionCorner.CornerRadius = UDim.new(0, 8)
+VersionCorner.Parent = Version
+
+-- Content Frame
+local Content = Instance.new("Frame")
+Content.Name = "Content"
+Content.Size = UDim2.new(1, -40, 1, -90)
+Content.Position = UDim2.new(0, 20, 0, 60)
+Content.BackgroundTransparency = 1
+Content.Parent = MainFrame
+
+-- Shooms Display
+local ShoomsFrame = Instance.new("Frame")
+ShoomsFrame.Name = "ShoomsFrame"
+ShoomsFrame.Size = UDim2.new(1, 0, 0, 60)
+ShoomsFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 45)
+ShoomsFrame.BorderSizePixel = 0
+ShoomsFrame.Parent = Content
+
+local ShoomsCorner = Instance.new("UICorner")
+ShoomsCorner.CornerRadius = UDim.new(0, 12)
+ShoomsCorner.Parent = ShoomsFrame
+
+local ShoomsLabel = Instance.new("TextLabel")
+ShoomsLabel.Name = "Label"
+ShoomsLabel.Size = UDim2.new(1, -20, 0, 25)
+ShoomsLabel.Position = UDim2.new(0, 10, 0, 5)
+ShoomsLabel.BackgroundTransparency = 1
+ShoomsLabel.Text = "Shooms Balance"
+ShoomsLabel.TextColor3 = Color3.fromRGB(180, 180, 190)
+ShoomsLabel.TextSize = 14
+ShoomsLabel.Font = Enum.Font.GothamMedium
+ShoomsLabel.TextXAlignment = Enum.TextXAlignment.Left
+ShoomsLabel.Parent = ShoomsFrame
+
+local ShoomsValue = Instance.new("TextLabel")
+ShoomsValue.Name = "Value"
+ShoomsValue.Size = UDim2.new(1, -20, 0, 30)
+ShoomsValue.Position = UDim2.new(0, 10, 0, 25)
+ShoomsValue.BackgroundTransparency = 1
+ShoomsValue.Text = "0"
+ShoomsValue.TextColor3 = Color3.fromRGB(100, 200, 255)
+ShoomsValue.TextSize = 24
+ShoomsValue.Font = Enum.Font.GothamBold
+ShoomsValue.TextXAlignment = Enum.TextXAlignment.Left
+ShoomsValue.Parent = ShoomsFrame
+
+-- Species Counter
+local SpeciesFrame = Instance.new("Frame")
+SpeciesFrame.Name = "SpeciesFrame"
+SpeciesFrame.Size = UDim2.new(1, 0, 0, 50)
+SpeciesFrame.Position = UDim2.new(0, 0, 0, 70)
+SpeciesFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 45)
+SpeciesFrame.BorderSizePixel = 0
+SpeciesFrame.Parent = Content
+
+local SpeciesCorner = Instance.new("UICorner")
+SpeciesCorner.CornerRadius = UDim.new(0, 12)
+SpeciesCorner.Parent = SpeciesFrame
+
+local SpeciesLabel = Instance.new("TextLabel")
+SpeciesLabel.Name = "Label"
+SpeciesLabel.Size = UDim2.new(0.5, -5, 1, 0)
+SpeciesLabel.BackgroundTransparency = 1
+SpeciesLabel.Text = "Unique Species"
+SpeciesLabel.TextColor3 = Color3.fromRGB(180, 180, 190)
+SpeciesLabel.TextSize = 14
+SpeciesLabel.Font = Enum.Font.GothamMedium
+SpeciesLabel.TextXAlignment = Enum.TextXAlignment.Center
+SpeciesLabel.Parent = SpeciesFrame
+
+local SpeciesValue = Instance.new("TextLabel")
+SpeciesValue.Name = "Value"
+SpeciesValue.Size = UDim2.new(0.5, -5, 1, 0)
+SpeciesValue.Position = UDim2.new(0.5, 5, 0, 0)
+SpeciesValue.BackgroundTransparency = 1
+SpeciesValue.Text = "0 / 10"
+SpeciesValue.TextColor3 = Color3.fromRGB(100, 255, 150)
+SpeciesValue.TextSize = 18
+SpeciesValue.Font = Enum.Font.GothamBold
+SpeciesValue.TextXAlignment = Enum.TextXAlignment.Center
+SpeciesValue.Parent = SpeciesFrame
+
+-- Status Display
+local StatusFrame = Instance.new("Frame")
+StatusFrame.Name = "StatusFrame"
+StatusFrame.Size = UDim2.new(1, 0, 0, 80)
+StatusFrame.Position = UDim2.new(0, 0, 0, 130)
+StatusFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 45)
+StatusFrame.BorderSizePixel = 0
+StatusFrame.Parent = Content
+
+local StatusCorner = Instance.new("UICorner")
+StatusCorner.CornerRadius = UDim.new(0, 12)
+StatusCorner.Parent = StatusFrame
+
+local StatusLabel = Instance.new("TextLabel")
+StatusLabel.Name = "Label"
+StatusLabel.Size = UDim2.new(1, -20, 0, 25)
+StatusLabel.Position = UDim2.new(0, 10, 0, 5)
+StatusLabel.BackgroundTransparency = 1
+StatusLabel.Text = "Current Status"
+StatusLabel.TextColor3 = Color3.fromRGB(180, 180, 190)
+StatusLabel.TextSize = 14
+StatusLabel.Font = Enum.Font.GothamMedium
+StatusLabel.TextXAlignment = Enum.TextXAlignment.Left
+StatusLabel.Parent = StatusFrame
+
+local StatusValue = Instance.new("TextLabel")
+StatusValue.Name = "Value"
+StatusValue.Size = UDim2.new(1, -20, 1, -35)
+StatusValue.Position = UDim2.new(0, 10, 0, 30)
+StatusValue.BackgroundTransparency = 1
+StatusValue.Text = "Initializing..."
+StatusValue.TextColor3 = Color3.fromRGB(255, 200, 100)
+StatusValue.TextSize = 16
+StatusValue.Font = Enum.Font.Gotham
+StatusValue.TextXAlignment = Enum.TextXAlignment.Left
+StatusValue.TextYAlignment = Enum.TextYAlignment.Top
+StatusValue.TextWrapped = true
+StatusValue.Parent = StatusFrame
+
+-- Status Indicator
+local StatusIndicator = Instance.new("Frame")
+StatusIndicator.Name = "Indicator"
+StatusIndicator.Size = UDim2.new(0, 8, 0, 8)
+StatusIndicator.Position = UDim2.new(0, 10, 0, 10)
+StatusIndicator.BackgroundColor3 = Color3.fromRGB(255, 200, 100)
+StatusIndicator.BorderSizePixel = 0
+StatusIndicator.Parent = StatusLabel
+
+local IndicatorCorner = Instance.new("UICorner")
+IndicatorCorner.CornerRadius = UDim.new(1, 0)
+IndicatorCorner.Parent = StatusIndicator
+
+-- Pulse Animation for Indicator
+local function pulseIndicator()
+    while true do
+        local tweenInfo = TweenInfo.new(0.8, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut)
+        local goal = {BackgroundTransparency = 0.3}
+        local tween = TweenService:Create(StatusIndicator, tweenInfo, goal)
+        tween:Play()
+        tween.Completed:Wait()
+        
+        goal = {BackgroundTransparency = 0}
+        tween = TweenService:Create(StatusIndicator, tweenInfo, goal)
+        tween:Play()
+        tween.Completed:Wait()
+    end
+end
+
+task.spawn(pulseIndicator)
+
+-- ฟังก์ชันอัปเดต GUI
+local GUI = {}
+
+function GUI:UpdateShooms(amount)
+    ShoomsValue.Text = tostring(amount)
+end
+
+function GUI:UpdateSpecies(current, max)
+    SpeciesValue.Text = string.format("%d / %d", current, max or 10)
+    
+    if current >= (max or 10) then
+        SpeciesValue.TextColor3 = Color3.fromRGB(100, 255, 100)
+    else
+        SpeciesValue.TextColor3 = Color3.fromRGB(100, 255, 150)
+    end
+end
+
+function GUI:UpdateStatus(text, color)
+    StatusValue.Text = text
+    
+    if color then
+        StatusValue.TextColor3 = color
+        StatusIndicator.BackgroundColor3 = color
+    else
+        -- Default colors based on status
+        if text:lower():find("error") or text:lower():find("failed") then
+            StatusValue.TextColor3 = Color3.fromRGB(255, 100, 100)
+            StatusIndicator.BackgroundColor3 = Color3.fromRGB(255, 100, 100)
+        elseif text:lower():find("success") or text:lower():find("complete") then
+            StatusValue.TextColor3 = Color3.fromRGB(100, 255, 100)
+            StatusIndicator.BackgroundColor3 = Color3.fromRGB(100, 255, 100)
+        elseif text:lower():find("farming") or text:lower():find("collecting") then
+            StatusValue.TextColor3 = Color3.fromRGB(100, 200, 255)
+            StatusIndicator.BackgroundColor3 = Color3.fromRGB(100, 200, 255)
+        else
+            StatusValue.TextColor3 = Color3.fromRGB(255, 200, 100)
+            StatusIndicator.BackgroundColor3 = Color3.fromRGB(255, 200, 100)
+        end
+    end
+end
+
+-- Auto-update ฟังก์ชัน
+local function autoUpdateGUI()
+    task.spawn(function()
+        while task.wait(1) do
+            pcall(function()
+                local playerGui = LocalPlayer:WaitForChild("PlayerGui")
+                local coinsValue = playerGui:FindFirstChild("Data")
+                
+                if coinsValue then
+                    coinsValue = coinsValue:FindFirstChild("Coins")
+                    if coinsValue then
+                        GUI:UpdateShooms(coinsValue.Value)
+                    end
+                end
+                
+                -- Update Species Count
+                local unlocksFolder = playerGui:FindFirstChild("Data")
+                if unlocksFolder then
+                    unlocksFolder = unlocksFolder:FindFirstChild("Unlocks")
+                    if unlocksFolder then
+                        local uniqueCount = 0
+                        for _, species in pairs(unlocksFolder:GetChildren()) do
+                            if species:IsA("IntValue") and species.Value > 0 then
+                                uniqueCount = uniqueCount + 1
+                            end
+                        end
+                        GUI:UpdateSpecies(uniqueCount, 10)
+                    end
+                end
+            end)
+        end
+    end)
+end
+
+-- เริ่มต้น Auto-update
+autoUpdateGUI()
+
+-- Initial Status
+GUI:UpdateStatus("GUI Loaded Successfully!", Color3.fromRGB(100, 255, 100))
+task.wait(2)
+GUI:UpdateStatus("Waiting for main script...")
+
+-- Return GUI object for external control
+_G.X2MojiGUI = GUI
+
+print("[X2Moji GUI] Loaded Successfully!")
+
+return GUI
